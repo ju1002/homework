@@ -1,0 +1,20 @@
+package com.kh.run;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class Run {
+
+	public static void main(String[] args) {
+		Connection conn = null;
+		Statement stmt =null;
+		int result = 0;
+		
+		Scanner sc = new Scanner(System.in);
+		int num = sc.nextInt();
+		sc.nextLine();
+
+	}
+
+}

@@ -1,0 +1,62 @@
+package com.aclass.test.run;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public abstract class TestRun {
+
+	public static void main(String[] args) {
+		/*
+		 * 자바를 이용해서 DB에서 작업해야겠따.
+		 * 1. 디비버 싱행 (프로그램 실행)
+		 * 
+		 * 2. 접속하기(connect) 누름
+		 * 
+		 *  3. DBMS 선택 우리는 오라클로 들어갑
+		 *  
+		 *  4.IP주소 , PORT번호 , 사용자계정 , 비밀번호
+		 *  
+		 *  5. ojdbc.jar (여기가 중요!) 앞의 o가 오라클임 오라클 전용 jdbc다
+		 *  
+		 *  6. 새 SQL편집기 
+		 *  
+		 *  7. INSERT문을 작성한다 치자 ==INSERT INTO 테이블명  VALUSE('값', '값', '값');
+		 *  
+		 *  8. SQL문을 실행
+		 *  
+		 *  9. UpdatedRows : 1 실행결과가 정수
+		 *  
+		 *  10. COMMIT;
+		 */
+		//필요한 변수 세팅(자원반납을 위한)
+		Connection conn = null; //2~4번
+		Statement stmt = null; //6~8번
+		int result =0; //9번
+		
+		//사용자에게 값을 입력 받아서 DBMS로전달 -> 테이블에 INSERT
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("번호를 입력해주세요");
+		int num = sc.nextInt();
+		sc.nextLine();
+		System.out.println("이름을 입력해주세요");
+		String name  = sc.nextLine();
+		
+		//실행할 SQL문(완성된 형태로 데에터 베이스의 테이블 안의 세미콜론 전까지를 자바에서는 문자열로 봄
+		String sql = "INSERT INTO TB_STUDENT VALUES(1, '홍길동' , SYSDATE)";
+		sql = "INSERT INTO TB_STUDENT VALUES("+ num+ ","+ name + ",SYSDATE)"; //데이터베이스의 값을 자바에 넣어줌
+		
+//오라클에 접속하기 위한 드라이버를 만들어야 함 
+		//JDBC Driver 등록-> ojdbc.jar
+		/*드라이브 등록하는 법
+		 * 
+		*/
+		try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		}catch(ClassNotFoundException e) {
+		e.printStackTrace
+		}
+	
+
+}

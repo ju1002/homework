@@ -1,0 +1,100 @@
+package com.aclass.test.run;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectRun {
+
+	public static void main(String[] args) {
+		// 현재 작업중인 DBMS에서 각자 자신이 가지고 있는 TB_STUDENT테이블의 모든 행 조회 Console에 출력
+		// 조회하는거니까 selec문 사용 결과가 resultset로 옴(조회된 행들의 집합)
+		// resultset타입의ㅣ 데이터를 받아서 뽑기
+
+		// 1.)필요한 변수를 먼저 세팅
+		Connection conn = null; // 접속을 담당하는게 connection
+		Statement stmt = null; // 실행을 담당하는게 statement
+		ResultSet rset = null; // selec문을 사용하니까 결과를 받을 변수를 선정 그게 resultSet
+
+		// 요청할 SQL문도 미리 완성형태로 준비해두기
+		// String sql = "SELECT"+ ", STUDENT_ID"+ ", STUDENT_NAME"+",ENROLL_DATE"+"FROM
+		// "+"TB_STUDENT "+"ORDER "+"BY"+"ENROLL_DATE DESC";
+		String sql = """
+				    SELECT
+				           STUDENT_ID
+				         , STUDENT_NAME
+				         , EnROLL_DATE
+				      FROM
+				           TB_STUDENT
+				     ORDER
+				        BY
+				           ENROLL_DATE DESC
+				""";
+
+		// 2.)jdbc driVer 등록
+		// 리플렉션을 이용한 드라이버 클래스 로딩
+		// 리플렉션: 미리 정해놓는게 아니라 실행할 때 정하는것이다. 실해하는 것의 타입 등 실행할 때 결정할 수 있음 코드의 변경 없이 데이터
+		// 베이스를 연결할 수 있도록
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+
+			// 3.) connection 객체생성
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE", "BJY11", "BJY111234");
+
+			System.out.println("DB서버 접속 성공");
+
+			// 4_StateMent 객체생성
+
+			stmt = conn.createStatement();
+
+			// 5.SQL문을 실행 후 결과 받기
+			rset = stmt.executeQuery(sql);
+			// System.out.println(rset);
+			//우리가 뽑고 싶은값은 각 컬럼들의 값이다.
+			//커서를 조작next()
+			//내가 가져와서 값을 가져올꺼니까 get사용 그 후 내가 뽑고싶은 자료형을 붙여줌 메소드의 인자값으로 컬럼명 
+			while(rset.next()) {
+			rset.next();
+			//커서를 조작했을 때 행이 존재한다면 true/ 행이 존재하지 않는다 false
+			int studentId = rset.getInt("STUDENT_ID");
+			String studentName = rset.getString("STUDENT_NAME");
+			Date enrolldate =rset.getDate("ENROLL_DATE");
+			System.out.println("번호 : "+studentId+", 이름 :"+studentName+ ",등록일 :" +enrolldate);
+			}
+		} catch (ClassNotFoundException e) {
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}finally {//자원반납은 생성의 역순으로 resultset을 먼저 반납
+			
+			
+			try {
+				if(rset != null && ! rset.isClosed()){
+			rset.close();}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			
+			try {
+				if(stmt != null&& ! stmt.isClosed())
+				stmt.close();
+			
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(conn !=null&& !conn.isClosed()) {
+					conn.close();
+				}}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
+
+}

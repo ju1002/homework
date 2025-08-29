@@ -1,0 +1,31 @@
+package com.kh.run;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class Run {
+
+	public static void main(String[] args) {
+		Connection conn = null;
+		Statement stmt =null;
+		int result = 0;
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("번호를 입력해 주세요");
+		int num = sc.nextInt();
+		sc.nextLine();
+		System.out.println("이름을 입력해주세요");
+		String name = sc.nextLine();
+		
+		String sql = "INSERT INTO EMPLOYEE VALUES (5000, '징징이');"
+                           
+                               
+				
+		
+				
+		
+
+	}
+
+}

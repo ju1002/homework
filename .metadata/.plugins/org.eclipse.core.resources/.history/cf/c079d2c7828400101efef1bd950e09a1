@@ -1,0 +1,81 @@
+package com.aclass.test.run;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public abstract class TestRun {
+
+	public static void main(String[] args) {
+		/*
+		 * 자바를 이용해서 DB에서 작업해야겠따.
+		 * 1. 디비버 싱행 (프로그램 실행)
+		 * 
+		 * 2. 접속하기(connect) 누름
+		 * 
+		 *  3. DBMS 선택 우리는 오라클로 들어갑
+		 *  
+		 *  4.IP주소 , PORT번호 , 사용자계정 , 비밀번호
+		 *  
+		 *  5. ojdbc.jar (여기가 중요!) 앞의 o가 오라클임 오라클 전용 jdbc다
+		 *  
+		 *  6. 새 SQL편집기 
+		 *  
+		 *  7. INSERT문을 작성한다 치자 ==INSERT INTO 테이블명  VALUSE('값', '값', '값');
+		 *  
+		 *  8. SQL문을 실행
+		 *  
+		 *  9. UpdatedRows : 1 실행결과가 정수
+		 *  
+		 *  10. COMMIT;
+		 */
+		//필요한 변수 세팅(자원반납을 위한)
+		Connection conn = null; //2~4번
+		Statement stmt = null; //6~8번
+		int result =0; //9번
+		
+		//사용자에게 값을 입력 받아서 DBMS로전달 -> 테이블에 INSERT
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("번호를 입력해주세요");
+		int num = sc.nextInt();
+		sc.nextLine();
+		System.out.println("이름을 입력해주세요");
+		String name  = sc.nextLine();
+		
+		//실행할 SQL문(완성된 형태로 데에터 베이스의 테이블 안의 세미콜론 전까지를 자바에서는 문자열로 봄
+		String sql = "INSERT INTO TB_STUDENT VALUES(1, '홍길동' , SYSDATE)";
+		sql = "INSERT INTO TB_STUDENT VALUES("+ num+ ","+ name + ",SYSDATE)"; //데이터베이스의 값을 자바에 넣어줌
+		
+//오라클에 접속하기 위한 드라이버를 만들어야 함 
+		//JDBC Driver 등록-> ojdbc.jar
+		//Driver등록은 프로그램 실행 시 1번만 하면 됨
+		/*드라이브 등록하는 법
+		 * 
+		*/
+		try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		System.out.println("드라이버 등록 성공!");//이패키지 에서 이클래스를 사용하기 위해 등록하는 과정    3번 5번 한거임
+		
+//	2. DB서버와의 연결 (IP주소, PORT번호 , 사용자이름 , 비밀번호)
+		DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE"
+									,"BJY11"
+									, "BJY111234");
+		System.out.println("DB서버 접속 성공!");
+		
+		
+		}catch(ClassNotFoundException e) {
+		e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	//자바에서 규칙을 만드는 방법 interface
+//jdbc 는 자바에서 db를 사용하기 위해서 모두 똑같은 방법으로 사용하기위해서 만들어 놓은 것
+//jar파일은 내가 자바에서 사용한  클래스를 압축해놓은 파일
+//자바에서 오라클 DBMS에 접속하기 위해서 ojtbc에 있는 클래스를 사용하여 등록한다.ㅣ
+//프로젝트 파일에 우클릭 후 프로펄티 후 라이브러리 후 ojtbc 를 등록하면 됨 
+		
+
+}}

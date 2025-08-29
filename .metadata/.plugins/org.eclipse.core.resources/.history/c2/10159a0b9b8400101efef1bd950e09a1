@@ -1,0 +1,82 @@
+package com.aclass.test.run;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class SelectRun {
+
+	public static void main(String[] args) {
+		//현재 작업중인 DBMS에서 각자 자신이 가지고 있는 TB_STUDENT테이블의 모든 행 조회 Console에 출력
+		//조회하는거니까 selec문 사용 결과가 resultset로 옴(조회된 행들의 집합)
+		//resultset타입의ㅣ 데이터를 받아서 뽑기
+		
+		//1.)필요한 변수를 먼저 세팅
+		Connection conn = null; //접속을 담당하는게 connection
+		Statement stmt = null; //실행을 담당하는게 statement
+		ResultSet rset = null; // selec문을 사용하니까 결과를 받을 변수를 선정 그게 resultSet
+		
+		//요청할 SQL문도 미리 완성형태로 준비해두기
+		//String sql = "SELECT"+ ", STUDENT_ID"+ ", STUDENT_NAME"+",ENROLL_DATE"+"FROM "+"TB_STUDENT "+"ORDER "+"BY"+"ENROLL_DATE DESC"; 
+		String aql = """
+				        SELECT
+				               STUDENT_ID
+				             , STUDENT_NAME
+				             , EnROLL_DATE
+				          FROM
+				               TB_STUDENT
+				         ORDER
+				            BY
+				               ENROLL_DATE DESC
+				                """
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,34 @@
+package com.aclass.test.run;
+
+public abstract class TestRun {
+
+	public static void main(String[] args) {
+		/*
+		 * 자바를 이용해서 DB에서 작업해야겠따.
+		 * 1. 디비버 싱행 (프로그램 실행)
+		 * 
+		 * 2. 접속하기(connect) 누름
+		 * 
+		 *  3. DBMS 선택 우리는 오라클로 들어갑
+		 *  
+		 *  4.IP주소 , PORT번호 , 사용자계정 , 비밀번호
+		 *  
+		 *  5. ojdbc.jar (여기가 중요!) 앞의 o가 오라클임 오라클 전용 jdbc다
+		 *  
+		 *  6. 새 SQL편집기 
+		 *  
+		 *  7. INSERT문을 작성한다 치자 ==INSERT INTO 테이블명  VALUSE('값', '값', '값');
+		 *  
+		 *  8. SQL문을 실행
+		 *  
+		 *  9. UpdatedRows : 1
+		 *  
+		 *  10. COMMIT;
+		 */
+		
+		
+		
+
+	}
+
+}
