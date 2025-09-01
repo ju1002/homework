@@ -11,7 +11,7 @@ public abstract class TestRun {
 	public static void main(String[] args) {
 		/*
 		 * 자바를 이용해서 DB에서 작업해야겠따.
-		 * 1. 디비버 싱행 (프로그램 실행)
+		 * 1. 디비버 실행 (프로그램 실행)
 		 * 
 		 * 2. 접속하기(connect) 누름
 		 * 
