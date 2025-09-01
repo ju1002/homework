@@ -22,6 +22,16 @@ public class MemberView {
 	 * 
 	 */
 	public void mainMenu() {
+		/*2020/09/01 오늘의 실습 겸 숙제
+		 * 나만의 테이블 만들고
+		 * 나만의 테이블에 INSERT/전체조회/ 유니크제약조건 걸려있는 컬럼으로 조회
+		 * LIKE키워드 써서 조회
+		 * 
+		 * 
+		 */
+		
+		
+		
 		//메인화면이 떴을 때 띄어줄 내용 작성
 		while(true) {
 			System.out.println("----------회원 관리 프로그램---------------");
