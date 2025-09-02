@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.statement.model.dao.MemberDao;
 import com.kh.statement.model.dto.PasswordDTO;
 import com.kh.statement.model.vo.Member;
+
 /**
  * VIEW에서 넘어온 요청을 처리해주는 클래스입니다.
  * 1. 메소드로 전달된 데이터를 가공처리 한 뒤 DAO로 전달합니다.
@@ -29,7 +30,7 @@ public class MemberController {
 		// 전달된 인자값들을 Member객체의 필드에 담기
 		//1.매개변수 생성자를 호출하여서 객체 생성과 동시에 필드값을 대입하는 방 법
 		//2. 기본생성자로 객체를 생성한 뒤 setter메소드를 호출하는방법
-		Member member = new Member(userId , userPwd , userName ,email); //1번 방법 사용
+		Member member = new Member(userId, userPwd, userName , email); //1번 방법 사용
 		//컨트롤 1절 끝
 		int result = new MemberDao().save(member);
 		return result;
@@ -60,12 +61,17 @@ public class MemberController {
 	
 	
 	
+	
 	public List<Member> findByKeyword(String keyword) {
 		//결과값이 나중에 어떻게돌아올지 생각을 해야함
 		//SELECT -> ResultSet-> Member -> List<Member>
 		List<Member> members = new MemberDao().findByKeyword(keyword);
 		return members;
 	}
+	
+	
+	
+	
 	public int update (String userId , String userPwd , String newPassword) {
 		//1. 데이터 가공 인자값이 많아서 담을 공간이 필요함
 		PasswordDTO pd = new PasswordDTO(userId,userPwd,newPassword);
@@ -82,4 +88,5 @@ public class MemberController {
 		int result = new MemberDao().delete(member);
 		return result;	
 	
-}}
+	}
+}

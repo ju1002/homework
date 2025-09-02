@@ -84,7 +84,7 @@ public class MemberView {
 		
 		//입력받았으니까 전달한다.
 		//전달하는 방법은 메소드를 호출하면서  인자값으로 보내줌
-		int result = mc.save(userId,userPwd,email,userName);
+		int result = mc.save(userId, userPwd,email,userName);
 		if(result>0) {
 			System.out.println("회원가입의 실패했습니다.");
 		}else {
@@ -138,6 +138,7 @@ public class MemberView {
 		}
 		
 	}
+	
 	public void findByKeyword()
 	{
 		System.out.println("\n 회원 이름 키워드로 검 색");
@@ -178,8 +179,8 @@ public class MemberView {
 		String userId =sc.nextLine();
 		System.out.println("비밀번호 주세요ㅕ");
 		String userpwd =sc.nextLine();
-		int resul = mc.delete(userpwd,userId);
-		if(resul>0) {
+		int result = mc.delete(userId,userpwd);
+		if(result>0) {
 			System.out.println("성공");
 		}else {
 			System.out.println("실패");

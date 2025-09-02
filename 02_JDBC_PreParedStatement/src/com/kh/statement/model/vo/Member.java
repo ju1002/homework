@@ -18,7 +18,17 @@ import java.util.Objects;
 
 public class Member {
 	
-	  private int userNo;
+	  public Member(int userNo, String userId, String userPwd, String userName, String email, Date enrollDate) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.enrollDate = enrollDate;
+	}
+
+	private int userNo;
 	  private String userId; 
 	  private String userPwd;
 	  private String userName;
@@ -35,27 +45,20 @@ public class Member {
 	   */
 	  
 	  
+	  
 	public Member() {
 		super();
 	}
 
-	
-	public Member(String userId, String userPwd, String userName, String email,int userNo,Date enrollDate) {
+//기본값이 존재하는 컬럼을 제외하고 나머지 필드값만 초기화 해주는 생성자 
+
+	public Member(String userId, String userPwd, String userName, String emamil) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
-		this.email = email;
-		this.userNo = userNo;
-		this.enrollDate =enrollDate;
+		this.email = emamil;
 	}
-//기본값이 존재하는 컬럼을 제외하고 나머지 필드값만 초기화 해주는 생성자 
-
-
-	public Member(String userId2, String userPwd2, String userName2, String email2) {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	public int getUserNo() {
 		return userNo;

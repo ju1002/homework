@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.statement.model.dto.PasswordDTO;
 import com.kh.statement.model.vo.Member;
 
 public class MemberDao {
@@ -111,12 +112,12 @@ public class MemberDao {
 
 	}
 
-	public void findAll() {
-		//DB한테 해달라해야함 그럼 JDBC객체를 생성
-		Connection conn =null; //연결된  DB의 정보를 담는 객체
+	public List<Member> findAll() {
+		// DB한테 해달라해야함 그럼 JDBC객체를 생성
+		Connection conn = null; // 연결된 DB의 정보를 담는 객체
 		Statement stmt = null; // SQL문을 실행하고 결과를 받기 위한 객체
 		ResultSet rset = null; // SELECR문을 수행하고 조회 결괴값들이 담길 객체
-		
+		List<Member> members = new ArrayList();
 		String sql = """
 				         SELECT
 				                USERNO
@@ -124,53 +125,85 @@ public class MemberDao {
 				               ,USERPWD
 				               ,USERNAME
 				               ,EMAIL
-				               ,ENROLLDATE
+				               ,ENROLLDATE AS "DATE"
 				          FROM
 				                MEMBER
 				         ORDER
 				            BY
 				               ENROLLDATE DESC
 				""";
-		
+
 		try {
-			//드라이버 등록
-		Class.forName("oracle,jdbc.driver.OracleDriver");
-		//오라클 db에 연결 그럴려면 connection 객체 생성
-		conn = DriverManager.getConnection("jdbc:oracle:this:@115.90.212.20:10000:XE"
-				                  ,"BJW11"
-				                  ,"BJW111234");
-				//get 반환 받는거니까 받을 공간 변수를 존재 
-		//sql문 실행 statement객체 생성 해서 실행
-		 stmt = conn.createStatement();
-		//만든것을 변수에 담아놔야 함
-		 // sql문(select) 실행  실행하면 결과가 반환 되는데 (resultset)타입으로 나옴 
-		 rset = stmt.executeQuery(sql);
-		 //6. Mapping한다 함 Mapping이란 ? 서로 다른 형태의  데이터 모델 간의 연결을 정의 하는 과정이다.
-		 // 자바는 데이터를 객체 형태로 다루고
-		 // 관계형 데이터베이스는 테이블 형태로 다룬다.
-		 // 
-		 
-		 //현재 조회 결과는 ResultSet에 담겨있음
-		 // 한 행씩 뽑아서 Vo객체의 필드에 담기
-		//reset.next()
-		 //커서를 한 줄 아래로 옯겨주고 존재한다 true/ 존재하지 않는다 false
-		 /*while(rset.next()) {
-			 //현재 rset의 커서가 가리키고 있는 행의 데이터를 하나하나씩 뽑아서 MemberVo의 필드의 대입
-			 Memeber member = new Member();
-			 //ResultSet객체로부터 어떤 컬럼의 값을 뽑을 건지 메소드를 호출하면서 컬럼명을 명시
-			 /*rset.getInt(컬럼명) :  정수형 값을 int형으로 매핑할 때
-			  * rset.getString(컬럼명) : 문자열형 값을 String 형으로 매핑할 때
-			  * rset.getDate(컬럼명) : 날짜 형 값을 java.sql.data형으로 매핑할 때
-			  */
-			 //메소드 호출 시 반환값이 있다면 값이 라고 생각해라
-			 //int userNo = rset.getInt("USERNO");
-			/* member.setUsetNO(rset.getInt("USERNO"));
-			 member.setuserId(rset.getString("USERID"));
-			member.setUserNamerse (rset.getString("USERPWD"));
-			member.setEamil(rset.getString("Email"));
-			member.setEnrollDate(rset.getDate("ENROLLDATE"));
-		*/		
-			 //Resullt에서 조회된 결과값
+			// 드라이버 등록
+			Class.forName("oracle,jdbc.driver.OracleDriver");
+			// 오라클 db에 연결 그럴려면 connection 객체 생성
+			conn = DriverManager.getConnection("jdbc:oracle:this:@115.90.212.20:10000:XE", "BJW11", "BJW111234");
+			// get 반환 받는거니까 받을 공간 변수를 존재
+			// sql문 실행 statement객체 생성 해서 실행
+			stmt = conn.createStatement();
+			// 만든것을 변수에 담아놔야 함
+			// sql문(select) 실행 실행하면 결과가 반환 되는데 (resultset)타입으로 나옴
+			rset = stmt.executeQuery(sql);
+			// 6. Mapping한다 함 Mapping이란 ? 서로 다른 형태의 데이터 모델 간의 연결을 정의 하는 과정이다.
+			// 자바는 데이터를 객체 형태로 다루고
+			// 관계형 데이터베이스는 테이블 형태로 다룬다.
+			//
+
+			// 현재 조회 결과는 ResultSet에 담겨있음
+			// 한 행씩 뽑아서 Vo객체의 필드에 담기
+			// reset.next()
+			// 커서를 한 줄 아래로 옯겨주고 존재한다 true/ 존재하지 않는다 false
+			while (rset.next()) {
+				// 현재 rset의 커서가 가리키고 있는 행의 데이터를 하나하나씩 뽑아서 MemberVo의 필드의 대입
+				Member member = new Member();
+				// ResultSet객체로부터 어떤 컬럼의 값을 뽑을 건지 메소드를 호출하면서 컬럼명을 명시
+				/*
+				 * rset.getInt(컬럼명) : 정수형 값을 int형으로 매핑할 때 rset.getString(컬럼명) : 문자열형 값을 String
+				 * 형으로 매핑할 때 rset.getDate(컬럼명) : 날짜 형 값을 java.sql.data형으로 매핑할 때
+				 */
+				// 메소드 호출 시 반환값이 있다면 값이 라고 생각해라
+				// int userNo = rset.getInt("USERNO");
+				member.setUserNo(rset.getInt("USERNO"));
+				member.setUserId(rset.getString("USERID"));
+				member.setUserPwd(rset.getString("USERPWD"));
+				member.setUserName(rset.getString("USERNAME"));
+				member.setEmamil(rset.getString("EMEMIL"));
+				member.setEnrollDate(rset.getDate("ENROLLDATE"));
+				members.add(member);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rset != null) {
+					rset.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return members;
+
+	}
+
+	// Resullt에서 조회된 결과값
 //		한 행에 모든 컬럼의 데이터 값을
 //		각각의 필드에 담아 Member 객체로 옯겨담으면 끝
 //		조회된 Member들을 싹 다 돌려보내야 함
@@ -185,7 +218,7 @@ public class MemberDao {
 			//connection, Statement, ResultSet
 //			Connection conn =  null;
 //			Statement stmt = null;
-//			ResultSet rset = null;
+//		   ResultSet rset = null;
 			//실행할 SQL문 (완성문)
 			/*SELECT
 			 *       USERNO
@@ -211,63 +244,43 @@ public class MemberDao {
 					         FROM
 					               MEMBER
 					         WHER 
-					               USERID = 
+					               USERID = '
 					""";
-			sql+="'"+userId+"'";
+			sql +="'"+userId+"'";
 			
 			
 			try {
 				//jdbc driver등록
 				Class.forName("oracle.jdbc.driver.OracleDriver");
-				try(Connection conn =DriverManager.getConnection("jdbc:oracle:this:@115.90.212.20:100000:XE"
+				try(Connection conn = DriverManager.getConnection("jdbc:oracle:this:@115.90.212.20:100000:XE"
 									 , "BJY11"
 									 , "BJY111234");
-						Statement stmt = conn.createStatement();
-						ResultSet rset = stmt.executeQuery(sql)){
-					
+				Statement stmt = conn.createStatement();
+				ResultSet rset = stmt.executeQuery(sql)){
+				
 					//조회결과가 담긴 ResultSet객체에서 조회결과가 존재하다면 VO객체의 필드에 옯겨담기
 					//아이디의 유티크제약을 걸어서 결과가 1만 존재하기 때문에 if 사용
 					//Id가지고 검색 한 행만 조회 
 					if(rset.next()) {
-						member = new Member(rset.getInt("USERNO")
-											, rset.getString("USERID")
-											, rset.getString("USERPWD")
-											, rset.getString("USERNAME")
-											, rset.getString("EMAMIL")
-										   , rset.getDate("ENROLLDATE"));
-}
-				}catch(SQLException e) {
+						member = new Member(rset.getString("USERID")
+								,rset.getString("USERPWD")
+								,rset.getString("USERNAME")
+								,rset.getString("EMAIL")
+										   ,rset.getInt("USERNO")
+										   ,rset.getDate("ENROLLDATE"));			
+					}
+						
+
+				}}catch(SQLException e) {
 e.printStackTrace();}
 catch(ClassNotFoundException e) {
-e.printStackTrace();}
+e.printStackTrace();
+}
 return member;
 			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-				
-			 
-			 
-		 
-		 
-	
-		
-		
-		
 	
 	
-	
-	
-	
-	
-	
-		}
+}
 
 	public List<Member> findByKeyword(String keyword){
 			List<Member> members = new ArrayList();
@@ -315,11 +328,12 @@ return member;
 			//ResultSet객체에서 각핼에 접근하면서 조회결과가 있다면 컬럼의 값을 뽑아서 vo객체에 필드에 대입한뒤
 			//Lise의 요소로 추가함
 			while(rset.next()) {
-				members.add(new Member(rset.getInt("USERNO")
-									  ,rset.getString("USERID")
-									  ,rset.getString("USERPWD")
-									  ,rset.getString("USERNAME")
-									  ,rset.getString("EMAIL")
+				members.add(new Member(
+						rset.getString("USERID")
+						,rset.getString("USERPWD")
+						,rset.getString("USERNAME")
+						,rset.getString("EMAIL")
+						,rset.getInt("USERNO")
 									  ,rset.getDate("ENROLLDATE")));
 				
 			}
@@ -334,10 +348,9 @@ return member;
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}finally{
-				try {
-					rset.close():
-					stmt.close();
+				try {rset.close();
 					conn.close();
+					stmt.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -347,5 +360,83 @@ return member;
 			return members;
 			
 			}
+
+	public int update(PasswordDTO pd) {
+		// update 처리된 행의 개수 (int)
+		// commit(트랜잭션 처리)
+
+		Connection conn = null; // db랑 연결
+		Statement stmt = null; // SQL문 실행
+		int result = 0;
+		String sql = "UPDATE " + "MEMBER "
+
+				+ "SET " + "PASSWORD = '" + pd.getNewPassword() + "' " + "WHERE " + "USERNO = (SELECT " + "USERNO "
+				+ "FROM " + "MEMBER " + "WHRER " + "USERID = '" + pd.getUserId() + "' " + "AND " + "USERPWD  = '"
+				+ pd.getUserPwd() + "')";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE", "BJY11", "BJY111234");
+			conn.setAutoCommit(false);
+			stmt = conn.createStatement();
+
+			result = stmt.executeUpdate(sql);
+			if (result > 0) {
+				conn.commit();
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+
+			}
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public int delete(Member member) {
+		int result = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		String sql = "DELETE " + "FROM " + "MEMBER " + "WHERE " + "USERID = '" + member.getUserId() + "' " + "AND "
+				+ "USERPWD = '" + member.getUserPwd() + "'";
+		try {
+			Class.forName("oracle.jdbc.drivier.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE", "BJY11", "BJY111234");
+			conn.setAutoCommit(false);
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+			if (result > 0) {
+				conn.commit();
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 }
