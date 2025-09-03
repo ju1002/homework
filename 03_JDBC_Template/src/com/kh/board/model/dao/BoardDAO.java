@@ -79,7 +79,7 @@ public class BoardDAO {
 				Board board = new Board(rset.getInt("BOARD_NO")
 										, rset.getString("BOARD_TITLE")
 										, null
-										, rset.getString("USERID")
+										, rset.getString("USER_ID")
 										, rset.getDate("CREATE_DATE")
 										, null);
 				boards.add(board);
@@ -113,7 +113,7 @@ public class BoardDAO {
 						SELECT
 						       BOARD_NO
 						     , BOARD_TITLE
-						     , BOARD_CONENT
+						     , BOARD_CONTENT
 						     , USER_ID
 						     , CREATE_DATE
 						     , DELETE_YN
@@ -132,7 +132,7 @@ public class BoardDAO {
 			pstmt.setInt(1, boardNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				board = new Board(rset.getInt("BOARDNO")
+				board = new Board(rset.getInt("BOARD_NO")
 								 , rset.getString("BOARD_TITLE")
 								 , rset.getString("BOARD_CONTENT")
 								 , rset.getString("USER_ID")
@@ -152,26 +152,42 @@ public class BoardDAO {
 		
 	}
 	
-	/*public int delete(Connection conn, int boardNo) {
-		try(PreparedStatement pstmt = conn.prepareStatement("""
-																UPDATE
-																       BOARD
-																   SET
-																       DELETE_YN = 'N'
-																   WHERE
-																         BOARD_NO = ?
-																    
-																         
-				""")){
-			pstmt.setInt(1,boardNo);
+	public int deleteBoard(Connection conn, int boardNo) {
+		int result = 0;//sql싨행 결과니까 
+		PreparedStatement pstmt =null; //sql 실행할 것
+		String sql = """
+				        DELETE
+				           FROM 
+				                BOARD
+				           WHERE
+				                DELETE_YN = 'Y'
+				            AND
+				                BOARD_NO = ?     
+				""";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,boardNo); //사요자가 입력한 값을 세팅할 꺼임
+			result =pstmt.executeUpdate();
+		} catch (SQLException e) {
 			
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+		
 	
-	*/
+		
+	}
+	
+	
+	
 	
 
 
 		
-	public void outputHTML(Connection conn) {
+	/*public void outputHTML(Connection conn) {
 		
 		FileWriter fos = null;
 		BufferedWriter bw = null;
@@ -217,7 +233,7 @@ public class BoardDAO {
 		}
 	}
 
-
+*/
 
 	
 	

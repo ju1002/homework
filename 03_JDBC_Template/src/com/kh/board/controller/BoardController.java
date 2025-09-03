@@ -21,7 +21,8 @@ public class BoardController {
 		return new BoardService().selectBoard(boardNo);
 	}
 	public int deleteBoard(int boardNo) {
-		return new BoardService().deleteBoard(boardNo);
+		int result = new BoardService().deleteBoard(boardNo);
+		return result;
 	}
 
 }

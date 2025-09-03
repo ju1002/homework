@@ -133,7 +133,14 @@ public class BoardView {
 		System.out.println("주세요 보드번호");
 		int boardNo = sc.nextInt();
 		sc.nextLine();
-		if(bc.deleteBoard())
+		int result =bc.deleteBoard(boardNo);
+		if(result >0) {
+			System.out.println("삭제 성공");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
+		//if(bc.deleteBoard())
 	}
 	
 	
