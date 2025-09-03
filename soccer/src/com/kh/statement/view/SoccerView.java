@@ -33,7 +33,7 @@ public class SoccerView {
 	case 2 : break;
 	case 3 : break;
 	case 4 : break;
-	case 5 : break;
+	case 5 : update();break;
 	case 6 : break;
 	case 9 : System.out.println("프로그램을 종료합니다."); return;
 	default : System.out.println("없는 메뉴입니다.");
@@ -52,6 +52,97 @@ public class SoccerView {
 		
 		st.plus(userName, userPosition , userTeam);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

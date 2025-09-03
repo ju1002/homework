@@ -3,8 +3,8 @@ package com.kh.statement.view;
 import java.util.List;
 import java.util.Scanner;
 
+import com.kh.board.view.BoardView;
 import com.kh.statement.controller.MemberController;
-import com.kh.statement.model.dao.MemberDao;
 import com.kh.statement.model.vo.Member;
 
 // alt shift  j  : 이쁘게 주석 만드는 법
@@ -42,6 +42,7 @@ public class MemberView {
 			System.out.println("4. 회원이름 키워드로 조회");
 			System.out.println("5. 회원정보 변경");
 			System.out.println("6. 회원탈퇴");
+			System.out.println("7.게시판 서비스로 이동");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("메뉴를 선택해주세요");
 			int menuNo =sc.nextInt();
@@ -54,6 +55,7 @@ public class MemberView {
 			case 4 : findByKeyword();break;
 			case 5 : update();break;
 			case 6 : delete();break;
+			case 7 : new BoardView().mainMenu();
 			case 9 : System.out.println("프로그램을 종료합니다.");return;
 			default : System.out.println("없는 메뉴입니다.");
 			

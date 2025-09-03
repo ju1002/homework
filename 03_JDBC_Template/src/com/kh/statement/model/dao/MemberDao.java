@@ -39,6 +39,7 @@ public class MemberDao {
 	 */
 	public int save(Connection conn , Member member) {
 		//connectiond 은 매개변수로 받았기 떄문에 생성 안함
+		//pstmt 가 sql실행 결과 잖아 근데 일단 내가 null로 초기화 해놔서 null이잖아 그러면 값이 있게 만들어줘야 하는데 결과에 sql을 넣어서 pstmt에 담아야 null이 안되지
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = """
@@ -58,13 +59,13 @@ public class MemberDao {
 		
 		try {
 			//PreparedStatement객체 생성
-			conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,member.getUserId());
 			pstmt.setString(2, member.getUserPwd());
 			pstmt.setString(3, member.getUserName());
 			pstmt.setString(4, member.getEmamil());
 			
-			//실행 ㄱ ,결과 (int) 받기
+			//실행 ,결과 (int) 받기
 			result = pstmt.executeUpdate();
 	
 		} catch (SQLException e) {
@@ -142,7 +143,7 @@ public class MemberDao {
 					             , USERPWD
 					             , USERNAME
 					             , EMAIL
-					             , EMROLLDATE
+					             , ENROLLDATE
 					          FROM
 					               MEMBER
 					         WHERE
@@ -151,7 +152,7 @@ public class MemberDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userId);
-				
+				rset = pstmt.executeQuery();
 				if(rset.next()) {
 					member = new Member(rset.getInt("USERNO")
 										,rset.getString("USERID")

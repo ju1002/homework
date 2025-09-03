@@ -86,10 +86,10 @@ public class MemberService {
 			throw new RuntimeException("긴 비밀번호 입니다.");
 			//throw : 개발자가 직접 예외를 발생시키는것
 			}
-		return null;
+		
 			Member member = new MemberDao().findById(conn, pd.getUserId());
 			if(member ==null) {
-				throw new RuntimeException ("존재하지 않는 아이디 입니다.");
+				//throw new RuntimeException ("존재하지 않는 아이디 입니다.");
 				return 0;
 			}
 			int result =new MemberDao().update(conn,pd);
