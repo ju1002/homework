@@ -15,6 +15,16 @@ public class Soccer {
 		super();
 	}
 
+
+	public Soccer(String userName, String userPosition, int salary, String userTeam) {
+		super();
+		this.userName = userName;
+		this.userPosition = userPosition;
+		this.salary = salary;
+		this.userTeam = userTeam;
+	}
+
+
 	public Soccer(int userNo, String userName, String userPosition, int salary, String userTeam, Date enrollDate) {
 		super();
 		this.userNo = userNo;
@@ -24,6 +34,14 @@ public class Soccer {
 		this.userTeam = userTeam;
 		this.enrollDate = enrollDate;
 	}
+
+	public Soccer(String userName, String userPosition, String userTeam) {
+		super();
+		this.userName = userName;
+		this.userPosition = userPosition;
+		this.userTeam = userTeam;
+	}
+
 
 	public int getUserNo() {
 		return userNo;
