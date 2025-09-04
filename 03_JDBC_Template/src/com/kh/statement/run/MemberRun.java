@@ -9,7 +9,7 @@ public class MemberRun {
 	public static void main(String[] args) {
 		JDBCTemplate.RegistDriver();
 		MemberView mv = new MemberView();
-		//mv.mainMenu();
+		mv.mainMenu();
 		BoardView bv = new BoardView();
 		bv.mainMenu();
 		
