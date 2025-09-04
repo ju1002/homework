@@ -35,7 +35,7 @@ public class SoccerView {
 	case 2 : found();break;
 	case 3 : mouney();break;
 	case 4 : break;
-	case 5 : break;
+	case 5 : update();break;
 	case 6 : break;
 	case 9 : System.out.println("프로그램을 종료합니다."); return;
 	default : System.out.println("없는 메뉴입니다.");
@@ -86,6 +86,7 @@ public class SoccerView {
 	}
 	
 	
+<<<<<<< HEAD
 	public void mouney() {
 		System.out.println("급여조회 서비스입니다");
 		System.out.println("급여를 입력 해 주세요");
@@ -104,4 +105,97 @@ public class SoccerView {
 			System.out.println("존재하지 않는 급여입니다");
 		}
 	}
+=======
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+>>>>>>> 4d8387a46ddb24cd06acbaa779fdadb66de1fb1b
 }
