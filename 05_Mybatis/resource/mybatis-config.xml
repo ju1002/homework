@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- xml에서 주석 사용하는 방법 이 문서의 형식이 configuration(환경설정) 임을 알려줌 .dtd == 유효성검사를 
+	해줌 => 최상위 부모요소가 반드시 comfiguration element -->
+<configuration>
+
+<!-- typeAliases : VO/DTO클래스들의 풀클래스명을  별칭으로  사용하기위해 등록하는 영역 -->
+<typeAliases>
+
+		<typeAlias type = "com.kh.statement.model.vo.Member"  alias= "member"/>
+		<typeAlias type = "com.kh.board.model.vo.Board" alias = "board"/>
+	
+
+
+
+
+</typeAliases>
+
+
+
+
+
+
+
+
+
+
+	<!-- environments : :MyBatis에서 연동할 DB의 정보들을 등록하는 영역 각각의 DB정보는 environments태그를 
+		이용해서 등록할 수 있음 => 꼭! default속성을 이용해서 여러개의 정보중 어떤 DB를 기본으로 사용할 것인지 지정해야함 -->
+	<environments default="development">
+		<environment id="development">
+
+			<!-- transactionManager: type이 필수 속성 JDBC와 MANAGED 중 하나를 선택할 수 있음 JDBC 
+				: 트핸잭션을 개발자가 직접관리하겠다. (수동 commit) MANAGED : 츠랜잭션에 대해서 개발자가 아무런 영향도 끼치지 않겠다. 
+				(자동 commit) -->
+
+			<transactionManager type="JDBC" />
+
+
+			<!-- dataSource의 type속성의 값으로 POOLED와 UNPOOLED중 하나를 선택할 수 있음(ConnectionPool) 
+				ConnectionPool : Connection객체를 담아두는 영역 , 한 번 생성된 Conenction을 재사용 POOLED => 
+				Connection 쓸래 UNPOOLDE => Connection 안 씀래 -->
+			<dataSource type="UNPOOLED">
+				<property name="driver"
+					value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@115.90.212.20:10000:XE" />
+				<property name="username" value="BJY11" />
+				<property name="password" value="BJY111234" />
+			</dataSource>
+
+
+
+
+		</environment>
+	</environments>
+
+	<!-- mappers : 실핼한 SQL문을 기록해둔 mapper파일을 등록하는 영역 -->
+	<mappers>
+		<mapper resource="member-mapper.xml" />
+		<mapper resource="board-mapper.xml"/>
+	</mappers>
+
+</configuration>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

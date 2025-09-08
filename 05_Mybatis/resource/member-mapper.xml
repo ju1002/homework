@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- mapper가 최상위 요소기 때문에 처음에 mapper로 열고 닫아줌
+  특징 : 안에 DML을 작성하는 경우 , SELECT을 작성하는 경우냐에 따라 달라짐
+  DML일 경우 : <insert id = "각 SQL문의 식별자> 				<update> 		<delete> 
+  				내가 사용하는 퀴리문
+  				
+  			 </insert>				</update>		</delete> 
+  			 
+SELECT일 경우 :<select id = "각SQL문의 식별자" parameterType = "SQL문을 실행할 때 필요한 자바타입">
+		resultType= "조회결과를 반환할 resultMap의 id속성값">
+		resultMap = "조회결과를 반환할 resultMap의 id속성값">
+
+			쿼리문			
+			
+			
+			
+			
+=>parameterTypedms 전달받을 값이 없다면 생략이 가능함
+=>SELECT문의 경우 반드시 어떤 형태로 반환할지를 속성으로 명시해야한다.
+			
+			</select>
+
+
+
+=> 그동안 pstmt객체를 이용해서 ?를 썼지만,
+앞으로는 위치홀더 대신 해당SQL문에 전달된 객체로부터 값을 꺼내서 사용   			 
+  			 get로 호출하고싶은 필드명 ,
+  			 
+  			 
+  			 
+  			 
+  			 
+  			 -->
+  <mapper namespace="memberMapper">
+  <!-- namespace :각 mapper의 고유한 별칭 다른 매퍼파일과 중복되면 안됨 
+  -->
+  
+  
+  <insert id = "save"
+  parameterType = "com.kh.statement.model.vo.Member">
+  	INSERT
+  	  INTO
+  	       MEMBER
+  	 VALUES
+  	       (
+  	       SEQ_USERNO.NEXTVAL
+  	     , #{userId}
+  	     , #{userPwd}
+  	     , #{userName}
+  	     , #{email}
+  	     , SYSDATE
+  	       )
+  	       
+  </insert>
+  
+  
+  <!--  resultMap : 마이바티스에서 가장 중요하고 가장 강력한 요소
+  					resultSet으로부터 조회한 컬럼의 값을 하나씩 뽑아서
+  					우리가 만든 VO객체에 각 필드에 담는 JDBC코드를 줄여주는역할 수행
+  					while(rset.next()){
+  					Member member =new Member();
+  					member.setUserNo(rset.getInt("USERNO")); USERNO컬럼의  member의 userNo를 넣어줌
+					이걸 줄여주는 용도다
+					
+					<resultMap id= "식별자" type = "매핑하고자하는 자바 객체의  타입(풀클래스명)">
+					 	<restul column = "조회된 결과를 뽑고자하는 컬럼명" property = "해당 결과를 매핑할 필드명"/>
+					
+					
+					</resultMap>
+				  					 -->
+<resultMap id = "memberResultSet" 
+	type = "com.kh.statement.model.vo.Member">
+	<result column = "USERNO" property = "userNo"/>	   
+	<result  column = "USERID" property = "userId"/> 
+	<result column = "USERPWD" property = "userPwd"/>
+	<result column = "USERNAME" property = "userName"/>
+	<result column = "EMAIL" property = "email"/>
+</resultMap>  
+  <select id = "findAll"
+  		  resultMap = "memberResultSet">
+  
+  		SELECT
+  		       USERNO
+  		     , USERID
+  		     , USERPWD
+  		     , USERNAME
+  		     , EMAIL
+  		     , ENROLLDATE
+  		  FROM
+               MEMBER
+		ORDER
+		   BY
+		       ENROLLDATE DESC  		       
+  
+  
+  
+  </select>
+  
+  <select id = "findById"
+  			parameterType = "string"
+  			resultType = "com.kh.statement.model.vo.Member">
+  			<!-- 별칭으로 사용가능 : -->
+  	
+  	SELECT
+  	         USERNO
+  	       , USERID
+  	       , USERPWD
+  	       , USERNAME
+  	       , EMAIL
+  	       
+  	  FROM
+  	         MEMBER
+	 WHERE
+	        USERID = #{userId}  
+  
+  </select>
+  
+  <select id = "findByKeyword"
+  			parameterType ="string"
+  			resultType = "member">
+  			<!--  넘어온게 무슨타입인지-->
+  
+  		SELECT
+  		       USERNO
+  		     , USERID
+  		     , USERPWD
+  		     , USERNAME
+  		     , EMAIL
+  	      FROM
+  	           MEMBER
+  	      WHERE
+  	            USERID LIKE ' %'||#{keyword}||'%'
+  
+  
+  
+  
+  
+  
+  
+  
+  </select>
+  
+  <update id = "update"
+           parameterType = "com.kh.statement.model.dto.PasswordDTO">
+           	UPDATE
+           	        MEMBER
+           	   SET
+           	       USERPWD = #{newPassword}
+           	 WHERE
+           	        USERID = #{userId}
+           	   AND 
+           	        USERPWD = #{userPwd}
+  
+  </update>
+  
+  
+  <delete id = "delete"
+   		   parameterType = "member">
+  			DELETE
+  			       MEMBER
+  			  WHERE
+  			        USERID = #{userId}
+  			    AND 
+  			        USERPWD = #{userPwd}
+  
+  
+  
+  
+  
+  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </mapper>

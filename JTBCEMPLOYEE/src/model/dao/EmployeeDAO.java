@@ -79,13 +79,12 @@ public class EmployeeDAO {
 		String sql = """
 				SELECT
 				       EMP_NAME
-				     , DEPT_TITLE
 				 FROM
 				      EMPLOYEE
 				 JOIN
 				      DEPARTMENT ON(DEPT_ID = DEPT_CODE)
 				WHERE
-				      DEPT_TITLE = ?
+				      DEPT_TITLE = '?'
 
 				""";
 		try {
@@ -94,7 +93,7 @@ public class EmployeeDAO {
 			pstmt.setString(1, userName);
 			rset = pstmt.executeQuery();
 			if (rset.next()) {// 매핑
-				employee = new Employee(rset.getString("EMP_NAME"), rset.getString("DEPT_TITLE"));
+				employee = new Employee( rset.getString("DEPT_TITLE"));
 			}
 			conn =getConnection();
 			} catch (SQLException e) {

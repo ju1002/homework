@@ -36,8 +36,8 @@ public class EmployeeView {
 		case 8 : break;
 		case 9 : break;
 		default : System.out.println("없는 메뉴입니다.");
-		}
 		return;
+		}
 		}
 	}
 	public void findAll()
